@@ -14,8 +14,11 @@
     <div class="col-8">
         <h3 class="text-muted">Usuarios</h3>
     </div>
+
     <div class="col-4 text-right">
-        <a href="{{ route('users.create') }}" class="btn btn-primary">Registrar</a>
+        @can('add_user')
+            <a href="{{ route('users.create') }}" class="btn btn-primary">Registrar</a>
+        @endcan
     </div>
 </div>
 <div class="card table-responsive">
@@ -25,20 +28,35 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Correo Electrónico</th>
-                <th scope="col"></th>
+                <th scope="col" style="    width: 240px;"></th>
             </tr>
         </thead>
         <tbody>
             @foreach ($users as $user)
+            @if ($user->is_admin == 1 && $user->id != \Auth::id())
+                        @continue
+                    @endif
             <tr>
                 <th scope="row">{{$user->id}}</th>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td class="clearfix">
-                    <a href="{{ route('users.edit',$user->id) }}" class="btn btn-sm btn-primary mr-1">Editar</a>
-                    @if ($user->id != \Auth::id())
-                    <a href="{{ route('users.destroy',$user->id) }}" class="btn btn-sm btn-danger ml-1">Eliminar</a></td>
-                    @endif
+                    
+                    @can('admin_permission')
+                        @if ($user->id != \Auth::id())
+                            <a href="{{ route('users.permission',$user->id) }}" class="btn btn-sm btn-success mr-1">Permisos</a>
+                        @endif
+                    @endcan
+
+                    @can('edit_user')
+                        <a href="{{ route('users.edit',$user->id) }}" class="btn btn-sm btn-primary mr-1">Editar</a>
+                    @endcan
+                    @can('delete_user')
+                        @if ($user->id != \Auth::id())
+                        <a href="{{ route('users.destroy',$user->id) }}" class="btn btn-sm btn-danger ml-1">Eliminar</a></td>
+                        @endif
+                    @endcan
+
                 </tr>
                 @endforeach
             </tbody>

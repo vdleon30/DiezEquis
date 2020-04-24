@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row my-4">
         <div class="col-8">
-            <h3 class="text-muted">Registar Usuarios</h3>
+            <h3 class="text-muted">Editar Usuarios</h3>
         </div>
         <div class="col-4 text-right">
             <a href="{{ route('users') }}" class="btn btn-danger">Cancelar</a>

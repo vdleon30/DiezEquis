@@ -75,4 +75,25 @@ class UsersController extends Controller
 
     	return redirect()->route("users")->with(["message_success"=>"Usuario Eliminado Exitosamente"]);
     }
+
+    public function getPermission($id)
+    {
+        $user = User::findOrFail($id);
+        return view("admin.users.permission",["user"=>$user]);
+    }
+
+    public function updatePermission (Request $request)
+    {
+        $user = User::findOrFail($request->id);
+            $user->permissions()->delete();
+            if ($request->permission && !empty($request->permission)) {
+                foreach ($request->permission as $key => $permission) {
+                    $user->permissions()->create([
+                        "label" => $key
+                    ]);
+                }
+            }
+            return redirect()->route("users")->with(["message_success"=>"Permisos de Usuario Actualizados Exitosamente"]);;
+
+    }
 }

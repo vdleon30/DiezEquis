@@ -14,9 +14,12 @@
         <div class="col-8">
             <h3 class="text-muted">Publicaciones</h3>
         </div>
-        <div class="col-4 text-right">
-            <a href="{{ route('posts.create') }}" class="btn btn-primary">Registrar</a>
-        </div>
+        @can('add_post')
+            <div class="col-4 text-right">
+                <a href="{{ route('posts.create') }}" class="btn btn-primary">Registrar</a>
+            </div>
+        @endcan
+        
     </div>
     <div class="card table-responsive">
         <table class="table table-hover table-striped text-center border-bottom">
@@ -38,11 +41,13 @@
                     <td class="text-center">{{$post->comments->count()}}</td>
                     <td class="clearfix">
                     <a href="{{ route('posts.view',$post->id) }}" class="btn btn-sm btn-success m-1">Ver</a>
-
-                    <a href="{{ route('posts.edit',$post->id) }}" class="btn btn-sm btn-primary m-1">Editar</a>
-                    @if ($post->id != \Auth::id())
+                    @can('edit_post')
+                        <a href="{{ route('posts.edit',$post->id) }}" class="btn btn-sm btn-primary m-1">Editar</a>
+                    @endcan
+                    @can('delete_post')
                     <a href="{{ route('posts.destroy',$post->id) }}" class="btn btn-sm btn-danger m-1">Eliminar</a></td>
-                    @endif
+                    @endcan
+                    
                 </tr>
                 </tr>
                 @endforeach

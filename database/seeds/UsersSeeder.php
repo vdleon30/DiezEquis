@@ -17,9 +17,10 @@ class UsersSeeder extends Seeder
     		"name" => "Administrador",
     		"email" => "admin@admin.com",
     		"password" => bcrypt('admin1234'),
+            "is_admin" => 1,
     	]);
-       	factory(User::class, 10)->create()->each(function($user){
+       	/*factory(User::class, 10)->create()->each(function($user){
 			$user->save();
-		});
+		});*/
     }
 }

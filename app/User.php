@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password', 'is_admin'
     ];
 
     /**
@@ -39,6 +39,19 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany('App\Posts','post_id');
+        return $this->hasMany('App\Posts');
+    }
+
+    public function permissions()
+    {
+        return $this->hasMany('App\Permissions');
+    }
+
+    public function hasPermission($permission)
+    {
+        if ($this->is_admin == 1) 
+            return true;
+        
+        return $this->permissions()->where("label",$permission)->first();
     }
 }

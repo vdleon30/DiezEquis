@@ -64,7 +64,6 @@ class PostsController extends Controller
     	$post = Posts::findOrFail($request->id);
     	$post->title = $request->title;
     	$post->body = $request->body;
-    	$post->user_id = \Auth::id();
     	$post->save();
 
     	return redirect()->route("posts")->with(["message_success"=>"Publicación Actualizada Exitosamente"]);

@@ -16,7 +16,13 @@ class CommentsController extends Controller
     	$comment->save();
 
     	return redirect()->back()->with(["message_success"=>"Tu Comentario se ha publicado exitosamente"]);
+    }
 
+    public function destroy($id)
+    {
+    	$user = Comments::findOrFail($id);
+    	$user->delete();
 
+    	return redirect()->back()->with(["message_success"=>"Comentario Eliminado Exitosamente"]);
     }
 }

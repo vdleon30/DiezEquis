@@ -1,3 +1,4 @@
+global.$ = window.jQuery = require('jquery/dist/jquery');
 window._ = require('lodash');
 
 /**

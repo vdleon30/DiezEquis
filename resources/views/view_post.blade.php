@@ -17,6 +17,8 @@
                 <p class="card-text"><small class="text-muted">{{$post->comments->count()}} {{$post->comments->count()==1?"Comentario":"Comentarios"}}</small> </p>
             </div>
         </div>
+        @can('add_comment')
+            {{-- expr --}}
         <form method="POST" action="{{ route('comments.save') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="post_id" value="{{$post->id}}">
@@ -36,17 +38,25 @@
                 </div>
             </form>
             <hr>
+        @endcan
+
         <h3 class="text-muted">Comentarios</h3>
         <div class="card">
             <div class="card-body">
                 @foreach ($post->comments as $key => $comment)
                     {!!$key == 0?"":"<hr>"!!}
                     <p class="card-text">{{$comment->body}}</p>
-                    <p class="card-text text-right"><small class="text-muted">{{$comment->user->name}} - {{$comment->created_at}} </small> </p>
+                   
+                    <p class="card-text text-right"> 
+                        
+                    <small class="text-muted">{{$comment->user->name}} - {{$comment->created_at}} </small> 
+                    @can ('delete_comment')
+                        <a href="{{ route('comments.destroy',$comment->id) }}"><small style="color: red">- Eliminar </small></a>
+                    @endcan
+                </p>
                 @endforeach
                 @if ($post->comments->isEmpty())
                     <p class="card-text text-muted text-center h4 my-4">No hay comentarios disponibles.</p>
-                    {{-- expr --}}
                 @endif
             </div>
         </div>
