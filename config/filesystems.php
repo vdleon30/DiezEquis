@@ -54,6 +54,11 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        
+        'uploads' => [
+            'driver' => 'local',
+            'root' => public_path(),
+        ],
 
         's3' => [
             'driver' => 's3',
@@ -62,7 +67,6 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
         ],
 
     ],
