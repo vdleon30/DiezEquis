@@ -37,7 +37,13 @@
                 <tr>
                     <th scope="row">{{$post->id}}</th>
                     <td>{{$post->title}}</td>
-                    <td>{{$post->user->name}} <br>{{$post->user->email}} </td>
+                    <td>
+                        @if ($post->user)
+                            {{$post->user->name}} <br>{{$post->user->email}} 
+                        @else
+                            Autor Desconocido
+                        @endif
+                    </td>
                     <td class="text-center">{{$post->comments->count()}}</td>
                     <td class="clearfix">
                     <a href="{{ route('posts.view',$post->id) }}" class="btn btn-sm btn-success m-1">Ver</a>

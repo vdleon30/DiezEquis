@@ -13,7 +13,6 @@ class PostsSeeder extends Seeder
     public function run()
     {
         factory(Posts::class, 20)->create()->each(function($post){
-        	$post->user_id = rand(1, 10);
 			$post->save();
 		});
     }

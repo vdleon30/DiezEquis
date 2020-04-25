@@ -48,8 +48,9 @@
                     <p class="card-text">{{$comment->body}}</p>
                    
                     <p class="card-text text-right"> 
-                        
+                    @if ($comment->user)
                     <small class="text-muted">{{$comment->user->name}} - {{$comment->created_at}} </small> 
+                    @endif
                     @can ('delete_comment')
                         <a href="{{ route('comments.destroy',$comment->id) }}"><small style="color: red">- Eliminar </small></a>
                     @endcan

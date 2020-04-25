@@ -7,7 +7,7 @@
             <h3 class="text-muted">Editar Publicación</h3>
         </div>
         <div class="col-4 text-right">
-            <a href="{{ route('users') }}" class="btn btn-danger">Cancelar</a>
+            <a href="{{ route('posts') }}" class="btn btn-danger">Cancelar</a>
         </div>
         <div class="col-8 offset-2 mt-3 ">
             
